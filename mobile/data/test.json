@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Milk",
+        "quantity": "1 L",
+        "expiry": "08/05/2026"
+    },
+    {
+        "id": 2,
+        "name": "Curd",
+        "quantity": "500 ML",
+        "expiry": "07/05/2026"
+    },
+    {
+        "id": 3,
+        "name": "Apple",
+        "quantity": "1 KG",
+        "expiry": "07/05/2026"
+    },
+    {
+        "id": 4,
+        "name": "Chocolate",
+        "quantity": "500 Mg",
+        "expiry": "10/05/2026"
+    }
+]
