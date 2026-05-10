@@ -51,20 +51,11 @@ export default function ItemCard({
     );
   }
 
-  // stable — row layout
   return (
     <View style={styles.row}>
       <View style={styles.rowAccent} />
       <View style={styles.rowInfo}>
         <Text style={styles.rowName}>{name}</Text>
-        <View style={styles.stockBarBg}>
-          <View
-            style={[
-              styles.stockBarFill,
-              { backgroundColor: accentColor, width: "75%" },
-            ]}
-          />
-        </View>
       </View>
       <View style={styles.rowMeta}>
         <Text style={styles.rowQty}>Qty: {quantity}</Text>
@@ -112,7 +103,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginTop: 2,
   },
-  // Row (staples)
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -134,18 +124,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     color: "#1a1c1a",
-  },
-  stockBarBg: {
-    marginTop: 4,
-    width: 128,
-    height: 4,
-    backgroundColor: "#efeeea",
-    borderRadius: 9999,
-    overflow: "hidden",
-  },
-  stockBarFill: {
-    height: "100%",
-    borderRadius: 9999,
   },
   rowMeta: {
     alignItems: "flex-end",
