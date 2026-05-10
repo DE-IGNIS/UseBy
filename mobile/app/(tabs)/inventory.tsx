@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   View,
   Text,
   FlatList,
   TextInput,
   ScrollView,
-  TouchableOpacity,
   StyleSheet,
 } from "react-native";
 import ItemCard from "../../components/ItemCard";
@@ -16,11 +16,9 @@ type Item = {
   name: string;
   quantity: string;
   expiry: string;
-  category: string;
 };
 
 type ItemStatus = "expired" | "expiring" | "warning" | "stable";
-const CATEGORIES = ["All Items", "Veggies", "Dairy", "Bakery"];
 
 function getStatus(expiryStr: string): ItemStatus {
   const [day, month, year] = expiryStr.split("/").map(Number);
@@ -41,7 +39,6 @@ function getStatus(expiryStr: string): ItemStatus {
 function Inventory() {
   const [items, setItems] = useState<Item[]>([]);
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All Items");
 
   useEffect(() => {
     setItems(data as Item[]);
@@ -75,37 +72,6 @@ function Inventory() {
           />
         </View>
 
-        {/* Category Pills */}
-        {/* <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.categoryRow}
-        >
-          {CATEGORIES.map((cat) => (
-            <TouchableOpacity
-              key={cat}
-              onPress={() => setActiveCategory(cat)}
-              style={[
-                styles.categoryPill,
-                activeCategory === cat
-                  ? styles.categoryPillActive
-                  : styles.categoryPillInactive,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.categoryPillText,
-                  activeCategory === cat
-                    ? styles.categoryPillTextActive
-                    : styles.categoryPillTextInactive,
-                ]}
-              >
-                {cat}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView> */}
-
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Expiring Soon</Text>
@@ -126,29 +92,37 @@ function Inventory() {
           />
         </View>
 
-        {/* Pantry Staples Section */}
-        {/* <View style={styles.section}>
+        <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Pantry Staples</Text>
+            <Text style={styles.sectionTitle}>Fresh Stock</Text>
             <View style={[styles.badge, styles.badgeNeutral]}>
               <Text style={[styles.badgeText, styles.badgeTextNeutral]}>
                 {pantryStaples.length} items
               </Text>
             </View>
-          </View> */}
-
-        {/* <View style={styles.staplesList}>
-            <FlatList
-              data={pantryStaples}
-              renderItem={({ item }) => (
-                <ItemCard {...item} status={getStatus(item.expiry)} />
-              )}
-              keyExtractor={(item) => item.id.toString()}
-              scrollEnabled={false}
-              ItemSeparatorComponent={() => <View style={styles.divider} />}
-            />
           </View>
-        </View> */}
+
+          <View style={styles.staplesList}>
+            {pantryStaples.map((item, index) => (
+              <View key={item.id}>
+                <View style={[styles.card, { borderLeftColor: "#4a654f" }]}>
+                  <View style={styles.imagePlaceholder}>
+                    <MaterialIcons name="inventory" size={24} color="#737972" />
+                  </View>
+                  <View style={styles.cardInfo}>
+                    <Text style={styles.cardName}>{item.name}</Text>
+                    <Text style={[styles.cardExpiry, { color: "#4a654f" }]}>
+                      STABLE
+                    </Text>
+                  </View>
+                </View>
+                {index < pantryStaples.length - 1 && (
+                  <View style={styles.divider} />
+                )}
+              </View>
+            ))}
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -191,32 +165,32 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#1a1c1a",
   },
-  categoryRow: {
-    gap: 8,
-    paddingBottom: 4,
-    marginBottom: 16,
-  },
-  categoryPill: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 9999,
-  },
-  categoryPillActive: {
-    backgroundColor: "#4a654f",
-  },
-  categoryPillInactive: {
-    backgroundColor: "#4a654f1a",
-  },
-  categoryPillText: {
-    fontSize: 14,
-    fontWeight: "500",
-  },
-  categoryPillTextActive: {
-    color: "#ffffff",
-  },
-  categoryPillTextInactive: {
-    color: "#4a654f",
-  },
+  // categoryRow: {
+  //   gap: 8,
+  //   paddingBottom: 4,
+  //   marginBottom: 16,
+  // },
+  // categoryPill: {
+  //   paddingHorizontal: 16,
+  //   paddingVertical: 8,
+  //   borderRadius: 9999,
+  // },
+  // categoryPillActive: {
+  //   backgroundColor: "#4a654f",
+  // },
+  // categoryPillInactive: {
+  //   backgroundColor: "#4a654f1a",
+  // },
+  // categoryPillText: {
+  //   fontSize: 14,
+  //   fontWeight: "500",
+  // },
+  // categoryPillTextActive: {
+  //   color: "#ffffff",
+  // },
+  // categoryPillTextInactive: {
+  //   color: "#4a654f",
+  // },
   section: {
     marginBottom: 40,
   },
@@ -259,6 +233,42 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: "#c2c8c0",
+  },
+  card: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#ffffff",
+    borderWidth: 1,
+    borderColor: "#c2c8c0",
+    borderRadius: 12,
+    borderLeftWidth: 4,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOpacity: 0.04,
+    shadowRadius: 8,
+    elevation: 1,
+  },
+  imagePlaceholder: {
+    width: 48,
+    height: 48,
+    borderRadius: 8,
+    backgroundColor: "#efeeea",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardInfo: {
+    marginLeft: 16,
+    flex: 1,
+  },
+  cardName: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#1a1c1a",
+  },
+  cardExpiry: {
+    fontSize: 14,
+    fontWeight: "500",
+    marginTop: 2,
   },
 });
 
