@@ -1,26 +1,92 @@
 [
     {
         "id": 1,
-        "name": "Milk",
+        "name": "Amul Taaza Milk",
         "quantity": "1 L",
-        "expiry": "08/05/2026"
+        "expiry": "12/05/2026"
     },
     {
         "id": 2,
-        "name": "Curd",
-        "quantity": "500 ML",
-        "expiry": "07/05/2026"
+        "name": "Amul Masti Dahi",
+        "quantity": "500 G",
+        "expiry": "13/05/2026"
     },
     {
         "id": 3,
-        "name": "Apple",
-        "quantity": "1 KG",
-        "expiry": "07/05/2026"
+        "name": "Basmati Rice",
+        "quantity": "5 KG",
+        "expiry": "01/01/2027"
     },
     {
         "id": 4,
-        "name": "Chocolate",
-        "quantity": "500 Mg",
-        "expiry": "10/05/2026"
+        "name": "Fortune Sunflower Oil",
+        "quantity": "1 L",
+        "expiry": "15/12/2026"
+    },
+    {
+        "id": 5,
+        "name": "Haldiram's Bhujia",
+        "quantity": "400 G",
+        "expiry": "20/08/2026"
+    },
+    {
+        "id": 6,
+        "name": "Colgate Toothpaste",
+        "quantity": "150 G",
+        "expiry": "30/11/2027"
+    },
+    {
+        "id": 7,
+        "name": "Dettol Handwash",
+        "quantity": "200 ML",
+        "expiry": "10/09/2026"
+    },
+    {
+        "id": 8,
+        "name": "Maggi Noodles",
+        "quantity": "70 G",
+        "expiry": "25/07/2026"
+    },
+    {
+        "id": 9,
+        "name": "Parle-G Biscuits",
+        "quantity": "80 G",
+        "expiry": "15/06/2026"
+    },
+    {
+        "id": 10,
+        "name": "Nescafe Coffee",
+        "quantity": "50 G",
+        "expiry": "12/10/2026"
+    },
+    {
+        "id": 11,
+        "name": "Surf Excel Matic",
+        "quantity": "2 KG",
+        "expiry": "30/03/2027"
+    },
+    {
+        "id": 12,
+        "name": "Good Life Atta",
+        "quantity": "10 KG",
+        "expiry": "05/02/2027"
+    },
+    {
+        "id": 13,
+        "name": "Himalaya Shampoo",
+        "quantity": "300 ML",
+        "expiry": "18/08/2026"
+    },
+    {
+        "id": 14,
+        "name": "Cadbury Silk Chocolate",
+        "quantity": "65 G",
+        "expiry": "22/09/2026"
+    },
+    {
+        "id": 15,
+        "name": "Patanjali Honey",
+        "quantity": "500 G",
+        "expiry": "30/04/2027"
     }
 ]
