@@ -26,7 +26,6 @@ export default function Add() {
   const [manualVisible, setManualVisible] = useState(false);
   const [name, setName] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
-  const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
 
   const scanAnim = useRef(new Animated.Value(0)).current;
@@ -188,13 +187,6 @@ export default function Add() {
               placeholderTextColor="#aaa"
             />
             <TextInput
-              placeholder="Category"
-              value={category}
-              onChangeText={setCategory}
-              style={styles.input}
-              placeholderTextColor="#aaa"
-            />
-            <TextInput
               placeholder="Quantity"
               value={quantity}
               onChangeText={setQuantity}
@@ -210,10 +202,9 @@ export default function Add() {
               <Pressable
                 style={styles.addBtn}
                 onPress={() => {
-                  console.log({ name, expiryDate, category, quantity });
+                  console.log({ name, expiryDate , quantity });
                   setName("");
                   setExpiryDate("");
-                  setCategory("");
                   setQuantity("");
                   setManualVisible(false);
                 }}
