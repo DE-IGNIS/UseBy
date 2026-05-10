@@ -1,5 +1,7 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import data from "../../data/test.json";
+import { useEffect, useState } from "react";
 
 type ItemStatus = "expired" | "expiring" | "warning" | "stable";
 
@@ -8,17 +10,59 @@ type Item = {
   name: string;
   quantity: string;
   expiry: string;
-  stockLevel: number; // 0–100
 };
 
 // ── Demo Data ──────────────────────────────────────────
-const DEMO_ITEMS: Item[] = [
-  { id: 1, name: "Whole Milk",    quantity: "1L",   expiry: "07/05/2025", stockLevel: 20 },
-  { id: 2, name: "Avocado",       quantity: "3 pcs", expiry: "08/05/2025", stockLevel: 100 },
-  { id: 3, name: "Baby Carrots",  quantity: "500g",  expiry: "10/05/2025", stockLevel: 45 },
-  { id: 4, name: "Greek Yogurt",  quantity: "500g",  expiry: "20/05/2025", stockLevel: 70 },
-  { id: 5, name: "Cheddar Cheese",quantity: "250g",  expiry: "03/05/2025", stockLevel: 10 },
-];
+// const DEMO_ITEMS: Item[] = [
+//   {
+//     id: 1,
+//     name: "Whole Milk",
+//     quantity: "1L",
+//     expiry: "07/05/2025",
+//   },
+//   {
+//     id: 2,
+//     name: "Avocado",
+//     quantity: "3 pcs",
+//     expiry: "08/05/2025",
+//   },
+//   {
+//     id: 3,
+//     name: "Baby Carrots",
+//     quantity: "500g",
+//     expiry: "10/05/2025",
+//   },
+//   {
+//     id: 4,
+//     name: "Greek Yogurt",
+//     quantity: "500g",
+//     expiry: "20/05/2025",
+//   },
+//   {
+//     id: 5,
+//     name: "Cheddar Cheese",
+//     quantity: "250g",
+//     expiry: "13/05/2026",
+//   },
+//   {
+//     id: 6,
+//     name: "Cake",
+//     quantity: "500g",
+//     expiry: "12/05/2026",
+//   },
+//   {
+//     id: 7,
+//     name: "Diet Coke",
+//     quantity: "500ml",
+//     expiry: "11/05/2026",
+//   },
+//   {
+//     id: 8,
+//     name: "Bannans",
+//     quantity: "500g",
+//     expiry: "10/05/2026",
+//   },
+// ];
 
 // ── Status Logic ───────────────────────────────────────
 function getStatus(expiryStr: string): ItemStatus {
@@ -27,9 +71,11 @@ function getStatus(expiryStr: string): ItemStatus {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const daysLeft = Math.ceil((expiry.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  const daysLeft = Math.ceil(
+    (expiry.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+  );
 
-  if (daysLeft < 0)  return "expired";
+  if (daysLeft < 0) return "expired";
   if (daysLeft <= 1) return "expiring";
   if (daysLeft <= 5) return "warning";
   return "stable";
@@ -40,48 +86,61 @@ function getStatusLabel(status: ItemStatus, expiryStr: string): string {
   const expiry = new Date(year, month - 1, day);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const daysLeft = Math.ceil((expiry.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  const daysLeft = Math.ceil(
+    (expiry.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+  );
 
-  if (status === "expired")  return "Expired";
-  if (status === "expiring") return daysLeft === 0 ? "Expiring Today" : "Expiring Tomorrow";
-  if (status === "warning")  return `${daysLeft} Days Left`;
+  if (status === "expired") return "Expired";
+  if (status === "expiring")
+    return daysLeft === 0 ? "Expiring Today" : "Expiring Tomorrow";
+  if (status === "warning") return `${daysLeft} Days Left`;
   return "Fresh";
 }
 
 const STATUS_ACCENT: Record<ItemStatus, string> = {
-  expired:  "#a03e40",
+  expired: "#a03e40",
   expiring: "#a03e40",
-  warning:  "#d8962e",
-  stable:   "#4a654f",
+  warning: "#d8962e",
+  stable: "#4a654f",
 };
 
 const STATUS_BADGE_BG: Record<ItemStatus, string> = {
-  expired:  "#ffdad6",
+  expired: "#ffdad6",
   expiring: "#ffdad6",
-  warning:  "#ffddb4",
-  stable:   "#cceacf",
+  warning: "#ffddb4",
+  stable: "#cceacf",
 };
 
 const STATUS_BADGE_TEXT: Record<ItemStatus, string> = {
-  expired:  "#93000a",
+  expired: "#93000a",
   expiring: "#771f24",
-  warning:  "#513300",
-  stable:   "#062010",
+  warning: "#513300",
+  stable: "#062010",
 };
 
-// ── Sub-components ─────────────────────────────────────
 function OverviewCard({
-  label, value, accentColor, labelColor, valueColor,
+  label,
+  value,
+  accentColor,
+  labelColor,
+  valueColor,
 }: {
-  label: string; value: string;
-  accentColor: string; labelColor: string; valueColor: string;
+  label: string;
+  value: string;
+  accentColor: string;
+  labelColor: string;
+  valueColor: string;
 }) {
   return (
     <View style={styles.overviewCard}>
       <View style={[styles.overviewAccent, { backgroundColor: accentColor }]} />
       <View>
-        <Text style={[styles.overviewLabel, { color: labelColor }]}>{label}</Text>
-        <Text style={[styles.overviewValue, { color: valueColor }]}>{value}</Text>
+        <Text style={[styles.overviewLabel, { color: labelColor }]}>
+          {label}
+        </Text>
+        <Text style={[styles.overviewValue, { color: valueColor }]}>
+          {value}
+        </Text>
       </View>
     </View>
   );
@@ -90,7 +149,6 @@ function OverviewCard({
 function UrgentItemCard({ item }: { item: Item }) {
   const status = getStatus(item.expiry);
   const accent = STATUS_ACCENT[status];
-  const stockWidth = `${item.stockLevel}%` as `${number}%`;
 
   return (
     <View style={[styles.urgentCard, { borderLeftColor: accent }]}>
@@ -101,52 +159,51 @@ function UrgentItemCard({ item }: { item: Item }) {
         </View>
         <View style={styles.urgentNameBlock}>
           <Text style={styles.urgentName}>{item.name}</Text>
-          <View style={[styles.badge, { backgroundColor: STATUS_BADGE_BG[status] }]}>
-            <Text style={[styles.badgeText, { color: STATUS_BADGE_TEXT[status] }]}>
+          <View
+            style={[styles.badge, { backgroundColor: STATUS_BADGE_BG[status] }]}
+          >
+            <Text
+              style={[styles.badgeText, { color: STATUS_BADGE_TEXT[status] }]}
+            >
               {getStatusLabel(status, item.expiry).toUpperCase()}
             </Text>
           </View>
-        </View>
-      </View>
-
-      {/* Stock bar */}
-      <View style={styles.stockSection}>
-        <View style={styles.stockLabelRow}>
-          <Text style={styles.stockLabel}>Stock Level</Text>
-          <Text style={styles.stockLabel}>{item.stockLevel}%</Text>
-        </View>
-        <View style={styles.stockBarBg}>
-          <View style={[styles.stockBarFill, { backgroundColor: accent, width: stockWidth }]} />
         </View>
       </View>
     </View>
   );
 }
 
-// ── Main Page ──────────────────────────────────────────
 export default function Dashboard() {
-  const urgentItems = DEMO_ITEMS.filter((item) => {
+  const [items , setItems] = useState<Item[]>([]);
+
+  useEffect(()=>{
+    setItems(data as Item[]);
+  })
+  
+  const urgentItems = items.filter((item) => {
     const s = getStatus(item.expiry);
     return s === "expired" || s === "expiring" || s === "warning";
   });
 
-  const expiringSoonCount = DEMO_ITEMS.filter((i) => {
+  const expiringSoonCount = items.filter((i) => {
     const s = getStatus(i.expiry);
-    return s === "expired" || s === "expiring";
+    return s === "expiring";
   }).length;
 
-  const thisWeekCount = DEMO_ITEMS.filter((i) => getStatus(i.expiry) === "warning").length;
-  const freshCount    = DEMO_ITEMS.filter((i) => getStatus(i.expiry) === "stable").length;
+  const thisWeekCount = items.filter(
+    (i) => getStatus(i.expiry) === "warning",
+  ).length;
+  const freshCount = items.filter(
+    (i) => getStatus(i.expiry) === "stable",
+  ).length;
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Pantry</Text>
-      </View>
-
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Overview Section */}
         <Text style={styles.sectionHeading}>Overview</Text>
         <View style={styles.overviewGrid}>
@@ -176,7 +233,7 @@ export default function Dashboard() {
         {/* Urgent Items Section */}
         <View style={styles.urgentHeader}>
           <Text style={styles.sectionHeading}>Urgent Items</Text>
-          <Text style={styles.viewAll}>View All</Text>
+          {/* <Text style={styles.viewAll}>View All</Text> */}
         </View>
 
         {urgentItems.length === 0 ? (
@@ -189,13 +246,11 @@ export default function Dashboard() {
             <UrgentItemCard key={item.id} item={item} />
           ))
         )}
-
       </ScrollView>
     </View>
   );
 }
 
-// ── Styles ─────────────────────────────────────────────
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -323,28 +378,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     letterSpacing: 0.8,
   },
-  stockSection: {
-    gap: 4,
-  },
-  stockLabelRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  stockLabel: {
-    fontSize: 14,
-    color: "#424842",
-  },
-  stockBarBg: {
-    height: 6,
-    backgroundColor: "#e3e2df",
-    borderRadius: 9999,
-    overflow: "hidden",
-  },
-  stockBarFill: {
-    height: "100%",
-    borderRadius: 9999,
-  },
-
   // Empty state
   emptyState: {
     alignItems: "center",
