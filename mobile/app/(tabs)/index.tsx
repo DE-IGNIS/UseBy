@@ -12,59 +12,6 @@ type Item = {
   expiry: string;
 };
 
-// ── Demo Data ──────────────────────────────────────────
-// const DEMO_ITEMS: Item[] = [
-//   {
-//     id: 1,
-//     name: "Whole Milk",
-//     quantity: "1L",
-//     expiry: "07/05/2025",
-//   },
-//   {
-//     id: 2,
-//     name: "Avocado",
-//     quantity: "3 pcs",
-//     expiry: "08/05/2025",
-//   },
-//   {
-//     id: 3,
-//     name: "Baby Carrots",
-//     quantity: "500g",
-//     expiry: "10/05/2025",
-//   },
-//   {
-//     id: 4,
-//     name: "Greek Yogurt",
-//     quantity: "500g",
-//     expiry: "20/05/2025",
-//   },
-//   {
-//     id: 5,
-//     name: "Cheddar Cheese",
-//     quantity: "250g",
-//     expiry: "13/05/2026",
-//   },
-//   {
-//     id: 6,
-//     name: "Cake",
-//     quantity: "500g",
-//     expiry: "12/05/2026",
-//   },
-//   {
-//     id: 7,
-//     name: "Diet Coke",
-//     quantity: "500ml",
-//     expiry: "11/05/2026",
-//   },
-//   {
-//     id: 8,
-//     name: "Bannans",
-//     quantity: "500g",
-//     expiry: "10/05/2026",
-//   },
-// ];
-
-// ── Status Logic ───────────────────────────────────────
 function getStatus(expiryStr: string): ItemStatus {
   const [day, month, year] = expiryStr.split("/").map(Number);
   const expiry = new Date(year, month - 1, day);
@@ -204,7 +151,6 @@ export default function Dashboard() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Overview Section */}
         <Text style={styles.sectionHeading}>Overview</Text>
         <View style={styles.overviewGrid}>
           <OverviewCard
