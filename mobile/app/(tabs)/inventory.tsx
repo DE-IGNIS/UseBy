@@ -165,32 +165,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#1a1c1a",
   },
-  // categoryRow: {
-  //   gap: 8,
-  //   paddingBottom: 4,
-  //   marginBottom: 16,
-  // },
-  // categoryPill: {
-  //   paddingHorizontal: 16,
-  //   paddingVertical: 8,
-  //   borderRadius: 9999,
-  // },
-  // categoryPillActive: {
-  //   backgroundColor: "#4a654f",
-  // },
-  // categoryPillInactive: {
-  //   backgroundColor: "#4a654f1a",
-  // },
-  // categoryPillText: {
-  //   fontSize: 14,
-  //   fontWeight: "500",
-  // },
-  // categoryPillTextActive: {
-  //   color: "#ffffff",
-  // },
-  // categoryPillTextInactive: {
-  //   color: "#4a654f",
-  // },
   section: {
     marginBottom: 40,
   },
