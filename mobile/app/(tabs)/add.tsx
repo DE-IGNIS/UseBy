@@ -14,6 +14,7 @@ import { CameraView, useCameraPermissions } from "expo-camera";
 
 const { width, height } = Dimensions.get("window");
 const SCANNER_SIZE = width * 0.48;
+const API_URL = "http://192.168.29.224:3001";
 
 // Adjust HEADER_HEIGHT to match your actual global header height
 const HEADER_HEIGHT = 60;
@@ -25,10 +26,40 @@ export default function Add() {
   const [permission, requestPermission] = useCameraPermissions();
   const [manualVisible, setManualVisible] = useState(false);
   const [name, setName] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
+  const [expiry, setExpiryDate] = useState("");
   const [quantity, setQuantity] = useState("");
 
   const scanAnim = useRef(new Animated.Value(0)).current;
+
+  const handleSubmit = async () => {
+    if (!name || !expiry || !quantity) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/items`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, expiry, quantity }),
+      });
+
+      const rawText = await response.text();
+      console.log("Raw server response:", rawText);
+
+      const result = JSON.parse(rawText);
+      if (result.success) {
+        console.log("Item saved:", result.item);
+        setName("");
+        setExpiryDate("");
+        setQuantity("");
+        setManualVisible(false); // close modal
+      }
+    } catch (error) {
+      console.error("Failed to save item:", error);
+      alert("Failed to save. Check console for details.");
+    }
+  };
 
   useEffect(() => {
     if (!permission?.granted) requestPermission();
@@ -181,7 +212,7 @@ export default function Add() {
             />
             <TextInput
               placeholder="Expiry Date (e.g. 31/12/2026)"
-              value={expiryDate}
+              value={expiry}
               onChangeText={setExpiryDate}
               style={styles.input}
               placeholderTextColor="#aaa"
@@ -199,16 +230,7 @@ export default function Add() {
               <Pressable onPress={() => setManualVisible(false)}>
                 <Text style={styles.cancelText}>Cancel</Text>
               </Pressable>
-              <Pressable
-                style={styles.addBtn}
-                onPress={() => {
-                  console.log({ name, expiryDate , quantity });
-                  setName("");
-                  setExpiryDate("");
-                  setQuantity("");
-                  setManualVisible(false);
-                }}
-              >
+              <Pressable style={styles.addBtn} onPress={handleSubmit}>
                 <Text style={styles.addBtnText}>Add</Text>
               </Pressable>
             </View>
