@@ -50,8 +50,8 @@ Describe your project
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
+:heavy_check_mark: Store Ingredient Expiry Information;\
+:heavy_check_mark: Expiry notifications;\
 :heavy_check_mark: Feature 3;
 
 ## :rocket: Technologies ##
