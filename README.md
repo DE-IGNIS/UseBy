@@ -1,97 +1,73 @@
-<div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="UseBy" />
+# UseBy
 
-  &#xa0;
+> Track expiry dates. Reduce waste. Stay organized.
 
-  <!-- <a href="https://useby.netlify.app">Demo</a> -->
-</div>
+---
 
-<h1 align="center">UseBy</h1>
+## About
 
-<p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/{{YOUR_GITHUB_USERNAME}}/useby?color=56BEB8">
+**UseBy** is a cross-platform mobile application designed to help individuals track product expiration dates and drastically reduce household waste. Whether managing groceries in your pantry, medications in your cabinet, or cosmetics in your bathroom, UseBy keeps your household organized by sending timely, automated notifications before your items expire.
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/{{YOUR_GITHUB_USERNAME}}/useby?color=56BEB8">
+By combining rapid barcode scanning with seamless manual entry, UseBy serves as a privacy-first personal tracker that ensures you use what you buy—saving money and reducing environmental impact.
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/{{YOUR_GITHUB_USERNAME}}/useby?color=56BEB8">
+## Features
 
-  <img alt="License" src="https://img.shields.io/github/license/{{YOUR_GITHUB_USERNAME}}/useby?color=56BEB8">
+* **📷 Intelligent Barcode Scanning:** Rapidly log commercial products using your device's built-in camera.
+* **✍️ Flexible Manual Entry:** Seamlessly add homegrown, un-barcoded, or custom items with user-defined expiry windows.
+* **🔔 Localized Smart Notifications:** Receive proactive, configurable alerts before products reach their expiration thresholds.
+* **🏡 Tailored for Personal Use:** Zero business overhead or complex logistics—optimized entirely for fast, individual household tracking.
+* **📊 Minimalist UI:** Clear, glanceable dashboards sorted by urgency so you know exactly what to use next.
 
-  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/{{YOUR_GITHUB_USERNAME}}/useby?color=56BEB8" /> -->
+## Tech Stack
 
-  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/{{YOUR_GITHUB_USERNAME}}/useby?color=56BEB8" /> -->
+UseBy is built on modern, scalable mobile technologies ensuring a fast, lightweight user experience:
 
-  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/{{YOUR_GITHUB_USERNAME}}/useby?color=56BEB8" /> -->
-</p>
+* **Framework:** React Native
+* **Tooling & Runtime:** Expo (SDK 51+)
+* **Navigation:** Expo Router / React Navigation
+* **Database:** SQLite (via `expo-sqlite`) for secure, local-first data persistence
+* **Scanner:** `expo-camera` / `expo-barcode-scanner`
+* **Notifications:** `expo-notifications` for scheduling local, on-device alerts
 
-<!-- Status -->
+## Prerequisites
 
-<!-- <h4 align="center"> 
-	🚧  UseBy 🚀 Under construction...  🚧
-</h4> 
+Before setting up the project locally, ensure you have the following installed:
 
-<hr> -->
+* [Node.js](https://nodejs.org/) (v18 or higher recommended)
+* [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+* [Expo Go](https://www.google.com/search?q=https://expo.dev/client) app installed on your physical iOS/Android device for testing, or an Android Emulator / iOS Simulator configured via Android Studio / Xcode.
 
-<p align="center">
-  <a href="#dart-about">About</a> &#xa0; | &#xa0; 
-  <a href="#sparkles-features">Features</a> &#xa0; | &#xa0;
-  <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
-  <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
-  <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
-  <a href="#memo-license">License</a> &#xa0; | &#xa0;
-  <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">Author</a>
-</p>
+## Installation
 
-<br>
-
-## :dart: About ##
-
-Describe your project
-
-## :sparkles: Features ##
-
-:heavy_check_mark: Store Ingredient Expiry Information;\
-:heavy_check_mark: Expiry notifications;\
-:heavy_check_mark: Feature 3;
-
-## :rocket: Technologies ##
-
-The following tools were used in this project:
-
-- [Expo](https://expo.io/)
-- [Node.js](https://nodejs.org/en/)
-- [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-
-## :white_check_mark: Requirements ##
-
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
-
-## :checkered_flag: Starting ##
+Follow these steps to clone the repository and spin up the local development server:
 
 ```bash
-# Clone this project
-$ git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/useby
+# 1. Clone the repository
+git clone https://github.com/darsyn/useby.git
 
-# Access
-$ cd useby
+# 2. Navigate into the project directory
+cd useby
 
-# Install dependencies
-$ node install
+# 3. Install project dependencies
+npm install
+# or if you use yarn: yarn install
 
-# Run the project
-$ npm start
+# 4. Start the Expo development server
+npx expo start
 
-# The server will initialize in the <http://localhost:3000>
 ```
 
-## :memo: License ##
+Once the development server starts, scan the QR code printed in your terminal using your phone's camera (iOS) or the Expo Go app (Android) to open the app.
 
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
+## Future Improvements
 
+- Cloud sync / backup
+- Shared household tracking
+- AI-based expiry prediction
+- Product recognition improvements
 
-Made with :heart: by <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">Darsyn</a>
+## License
 
-&#xa0;
+This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE) file
 
-<a href="#top">Back to top</a>
+---
